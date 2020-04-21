@@ -1,48 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-// クラスコンポーネント
-class App extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <label htmlFor="bar">bar</label>
-        <input
-          type="text"
-          onClick={() => {
-            console.log('I am clicked.');
-          }}
-        />
-      </React.Fragment>
-    );
-  }
+function App() {
+  const profiles = [
+    { name: 'Taro', age: 10 },
+    { name: 'Hanako', age: 5 },
+    { name: 'NoName' },
+  ];
+  return (
+    <div>
+      {profiles.map((profile, index) => {
+        return <User name={profile.name} age={profile.age} key={index} />;
+      })}
+    </div>
+  );
 }
 
-// // ファンクショナルコンポーネント
-// const App = () => {
-//   return (
-//     <div>
-//       <Cat />
-//       <Cat />
-//     </div>
-//   );
-// };
+function User(props) {
+  return (
+    <div>
+      Hi, I am {props.name}, and {props.age}year old!
+    </div>
+  );
+}
 
-// const Cat = () => {
-//   return <div>Meow!</div>;
-// };
-
-// function App() {
-//   return (
-//     <React.Fragment>
-//       <label htmlFor="bar">bar</label>
-//       <input
-//         type="text"
-//         onClick={() => {
-//           console.log('I am clicked.');
-//         }}
-//       />
-//     </React.Fragment>
-//   );
-// }
+User.defaultProps = {
+  age: 'Unknown ',
+};
 
 export default App;
