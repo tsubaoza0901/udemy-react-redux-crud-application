@@ -1,7 +1,17 @@
 import React from 'react';
 
 function App() {
-  return <h1>Hello World!</h1>;
+  return (
+    <React.Fragment>
+      <label htmlFor="bar">bar</label>
+      <input
+        type="text"
+        onClick={() => {
+          console.log('I am clicked.');
+        }}
+      />
+    </React.Fragment>
+  );
 }
 
 export default App;
