@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { postEvent } from '../actions';
 
 class EventsNew extends React.Component {
-  // 追加
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
@@ -26,15 +25,13 @@ class EventsNew extends React.Component {
       </div>
     );
   }
-  // イベント発火（サブミットボタンが押された）時の処理設定 ※非同期処理のためasyncを使用
   async onSubmit(values) {
     await this.props.postEvent(values);
-    this.props.history.push('/'); // トップページの履歴をpush
+    this.props.history.push('/');
   }
   render() {
-    const { handleSubmit } = this.props; // 追加
+    const { handleSubmit, pristine, submitting } = this.props;
     return (
-      // サブミットボタンが押されたらイベント発火
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <div>
           <Field
@@ -53,7 +50,11 @@ class EventsNew extends React.Component {
           />
         </div>
         <div>
-          <input type="submit" value="Submit" disabled={false} />
+          <input
+            type="submit"
+            value="Submit"
+            disabled={pristine || submitting}
+          />
           <Link to="/">Cansel</Link>
         </div>
       </form>
@@ -64,9 +65,8 @@ class EventsNew extends React.Component {
 const validate = (values) => {
   const errors = {};
 
-  // バリデーションの設定
-  if (!values.title) errors.title = 'Enter a title, please.'; // Titleが空の場合
-  if (!values.body) errors.body = 'Enter a body, please.'; // Bodyが空の場合
+  if (!values.title) errors.title = 'Enter a title, please.';
+  if (!values.body) errors.body = 'Enter a body, please.';
 
   return errors;
 };
@@ -75,5 +75,5 @@ const mapDispatchToProps = { postEvent };
 
 export default connect(
   null,
-  mapDispatchToProps // 修正
+  mapDispatchToProps
 )(reduxForm({ validate, form: 'eventNewForm' })(EventsNew));
