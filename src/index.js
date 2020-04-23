@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux'; // applyMiddlewareを追加 ※ applyMiddleware：ミドルウェア（今回の場合は、redux-thunk）を適用するための
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk'; // 追加
 import './index.css';
 import reducer from './reducers';
-import App from './components/App';
+import EventsIndex from './components/events_index'; // 修正
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk)); // 引数にapplyMiddleware(thunk)を追加。こうすることで、ミドルウェアとしてapplyされたthunkがstoreに組み込まれる。
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <EventsIndex />
   </Provider>,
   document.getElementById('root')
 );
