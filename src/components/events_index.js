@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Link } from 'react-router-dom'; // 追加
 
 import { readEvents } from '../actions';
 
@@ -19,21 +20,26 @@ class EventsIndex extends React.Component {
   }
   render() {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Body</th>
-          </tr>
-        </thead>
-        <tbody>{this.renderEvents()}</tbody>
-      </table>
+      <React.Fragment>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Body</th>
+            </tr>
+          </thead>
+          <tbody>{this.renderEvents()}</tbody>
+        </table>
+
+        <Link to="/events/new">New Event</Link>
+        {/* 追加 */}
+      </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = (state) => ({ events: state.events }); // Reducer側での状態の変化を拾えるよう修正
+const mapStateToProps = (state) => ({ events: state.events });
 
 const mapDispatchToProps = { readEvents };
 
