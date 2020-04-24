@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { Link } from 'react-router-dom'; // 追加
+import { Link } from 'react-router-dom';
 
 import { readEvents } from '../actions';
 
@@ -13,7 +13,10 @@ class EventsIndex extends React.Component {
     return _.map(this.props.events, (event) => (
       <tr key={event.id}>
         <td>{event.id}</td>
-        <td>{event.title}</td>
+        <td>
+          {/* リンクの追加 */}
+          <Link to={`/events/${event.id}`}>{event.title}</Link>
+        </td>
         <td>{event.body}</td>
       </tr>
     ));
@@ -33,7 +36,6 @@ class EventsIndex extends React.Component {
         </table>
 
         <Link to="/events/new">New Event</Link>
-        {/* 追加 */}
       </React.Fragment>
     );
   }
